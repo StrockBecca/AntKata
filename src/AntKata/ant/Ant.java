@@ -11,42 +11,62 @@ public class Ant {
     private Status status;
     private Point lastKnownFoodPosition;
 
-    // TODO Attributs
-
     public Ant(Point positionColony) {
-        // TODO
+        this.position = positionColony;
     }
 
     private void scatter() {
         int randomX = RNG.random(-1, 1);
         int randomY = RNG.random(-1, 1);
 
-        // TODO
+        this.status = this.getStatus();
+
+        switch(this.status) {
+            case WANDERING:
+                this.position = new Point(this.getPositionX() + randomX, this.getPositionY() + randomY);
+                break;
+
+            case RETURNING_COLONY:
+                this.position = new Point(this.getPositionX() - randomX, this.getPositionY() - randomY);
+                break;
+            case FETCHING_FOOD:
+                break;
+            default:
+                break;
+        }
     }
 
-    // TODO Méthodes de classes
+    private void foodLocation(Point location){
+        this.lastKnownFoodPosition = location;
+    }
 
     public int getPositionX() {
+
         return this.position.x;
     }
 
     public int getPositionY() {
+
         return this.position.y;
     }
 
     public Point getPosition() {
+
         return this.position;
     }
 
     public Status getStatus() {
+
         return this.status;
     }
 
     public void setPosition(Point point) {
+
         this.position = new Point(point.x, point.y);
     }
 
     public Point getLastKnownFoodPosition() {
+
         return lastKnownFoodPosition;
     }
 }
