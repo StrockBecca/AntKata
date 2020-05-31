@@ -37,7 +37,9 @@ public class Field extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 try {
                     image.setRGB(e.getX(), e.getY(), Color.green.getRGB());
-                    // TODO
+
+                    food.add(new Food(e.getX(), e.getY()));
+
                     repaint();
                 } catch (Exception exception) {
                     System.out.println("Invalid click");
@@ -61,7 +63,7 @@ public class Field extends JPanel {
         // Init button
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> {
-            //TODO
+            initColonyAndFood();
         });
 
         // Init food collected labels
@@ -82,15 +84,14 @@ public class Field extends JPanel {
     }
 
     private void initColonyAndFood() {
-        // TODO
-        this.c = new Colony(0, new Point(this.widthX / 2, this.heightX / 2));
+        this.c = new Colony(10, new Point(this.widthX / 2, this.heightX / 2));
         this.food = new ArrayList<>();
     }
 
     public void nextTurn() {
 
         // TODO add lifecycle
-
+        ArrayList <Point> foodList = new ArrayList<Point>();
         foodLabel.setText("TODO");
 
         this.image = new BufferedImage(widthX, heightX, BufferedImage.TYPE_INT_ARGB);
@@ -108,8 +109,12 @@ public class Field extends JPanel {
         // On itère sur une autre liste pour pouvoir retirer un élement sans risquer d'erreurs
         for (Food f : new ArrayList<>(food)) {
             f.nextTurn();
-            if (!f.isAlive())
+            if (!f.isAlive()) {
                 food.remove(f);
+
+            } else {
+                foodList.add(f.getPosition());
+            }
         }
     }
 

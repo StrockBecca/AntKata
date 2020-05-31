@@ -4,8 +4,7 @@ import java.awt.*;
 
 public class Food {
     private Point position;
-    private int cycle;
-    // TODO Attributs à rajouter pour gérer le cycle de vie
+    private int lifespan;
 
     public Point getPosition() {
         return position;
@@ -13,13 +12,11 @@ public class Food {
 
     public Food(int x, int y) {
         this.position = new Point(x, y);
-        this.cycle = 0;
-        // TODO
+        this.lifespan = 0;
     }
 
     public boolean isAlive() {
-        // TODO
-        if(this.cycle < 10000) {
+        if(this.lifespan < 1000) {
             return true;
 
         } else {
@@ -28,6 +25,6 @@ public class Food {
     }
 
     public void nextTurn() {
-        this.cycle += 1;
+        this.lifespan += 1;
     }
 }
