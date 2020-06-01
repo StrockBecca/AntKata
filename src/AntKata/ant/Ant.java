@@ -10,9 +10,11 @@ public class Ant {
     private Point position;
     private Status status;
     private Point lastKnownFoodPosition;
+    private Point colony;
 
     public Ant(Point positionColony) {
         this.position = positionColony;
+        this.colony = positionColony;
     }
 
     private void scatter() {
@@ -27,10 +29,13 @@ public class Ant {
                 break;
 
             case RETURNING_COLONY:
-                this.position = new Point(this.getPositionX() - randomX, this.getPositionY() - randomY);
+                this.path(this.colony);
                 break;
+
             case FETCHING_FOOD:
+                this.path(this.lastKnownFoodPosition);
                 break;
+
             default:
                 break;
         }
@@ -38,6 +43,24 @@ public class Ant {
 
     private void foodLocation(Point location){
         this.lastKnownFoodPosition = location;
+    }
+
+    private void path(Point destination) {
+        if (destination != null ){
+            if (destination.getX() > this.getPositionX()){
+                this.position = new Point(this.getPositionX() + 1, this.getPositionY() );
+            } else if (destination.getX() < this.getPositionX()) {
+                this.position = new Point(this.getPositionX() - 1, this.getPositionY() );
+            } else if (destination.getX() == this.getPositionX()) {
+                if (destination.getY() > this.getPositionY()){
+                    this.position = new Point(this.getPositionX(), this.getPositionY() + 1);
+                } else if (destination.getY() < this.getPositionY()){
+                    this.position = new Point(this.getPositionX(), this.getPositionY() - 1);
+                } else if (destination.getY() == this.getPositionY()){
+// if food exist =>statut = return to colonny else scatter
+                }
+            }
+        }
     }
 
     public int getPositionX() {
