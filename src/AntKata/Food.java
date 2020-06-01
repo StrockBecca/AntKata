@@ -7,6 +7,7 @@ public class Food {
     private int lifespan;
 
     public Point getPosition() {
+
         return position;
     }
 
@@ -25,6 +26,9 @@ public class Food {
     }
 
     public void nextTurn() {
+
         this.lifespan += 1;
     }
+
+
 }

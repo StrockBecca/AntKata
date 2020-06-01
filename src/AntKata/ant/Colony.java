@@ -52,18 +52,28 @@ public class Colony {
                     }
                     break;
 
-                case WANDERING:
+                case FETCHING_FOOD:
+                    if(ants.get(i).getPosition().equals(this.ants.get(i).getLastKnownFoodPosition())) {
+                        if (!ants.get(i).atFoodLocation(food)) {
+                            ants.get(i).setStatus(Status.WANDERING);
+                        } else {
+                            ants.get(i).setStatus(Status.RETURNING_COLONY);
+                        }
+                    }
+                    break;
 
+                case WANDERING:
+                    ants.get(i).lookForFood(food);
                     break;
 
                 default:
                     break;
             }
-            ants.get(i).scatter();
+            //ants.get(i).scatter();
         }
-/*
-        for (Ant ant : ants) {
 
+        for (Ant ant : ants) {
+/*
             switch(ant.getStatus()) {
                 case RETURNING_COLONY :
                     if(ant.getPosition().equals(this.position)) {
@@ -73,9 +83,9 @@ public class Colony {
                 default:
                     break;
             }
-
+*/
             ant.scatter();
-        }*/
+        }
 
         return foodCollected;
     }
@@ -84,7 +94,8 @@ public class Colony {
         return ants;
     }
 
-    public int getPositionX() { return position.x; }
+    public int getPositionX() {
+        return position.x; }
 
     public int getPositionY() {
         return position.y;

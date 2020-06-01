@@ -15,6 +15,7 @@ public class Ant {
     public Ant(Point positionColony) {
         this.position = positionColony;
         this.colony = positionColony;
+        this.status = Status.WANDERING;
     }
 
     public void scatter() {
@@ -41,8 +42,9 @@ public class Ant {
         }
     }
 
-    private void foodLocation(Point location){
+    public void foodLocation(Point location){
         this.lastKnownFoodPosition = location;
+        this.status = Status.RETURNING_COLONY;
     }
 
     private void path(Point destination) {
@@ -56,9 +58,28 @@ public class Ant {
                     this.position = new Point(this.getPositionX(), this.getPositionY() + 1);
                 } else if (destination.getY() < this.getPositionY()){
                     this.position = new Point(this.getPositionX(), this.getPositionY() - 1);
-                } else if (destination.getY() == this.getPositionY()){
+               } else if (destination.getY() == this.getPositionY()){
 // if food exist =>statut = return to colonny else scatter
                 }
+            }
+        }
+    }
+
+    //check if the food location has expired or not
+    public boolean atFoodLocation(List<Point> food) {
+        if(this.lastKnownFoodPosition != null) {
+            if(food.contains(this.lastKnownFoodPosition)) {
+                this.status = Status.RETURNING_COLONY;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void lookForFood(List<Point> food) {
+        for (Point location : food) {
+            if (location.equals(this.position)) {
+                this.foodLocation(location);
             }
         }
     }
