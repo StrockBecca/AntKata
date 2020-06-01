@@ -21,9 +21,9 @@ public class Ant {
         int randomX = RNG.random(-1, 1);
         int randomY = RNG.random(-1, 1);
 
-        this.status = this.getStatus();
+        //this.status = this.getStatus();
 
-        switch(this.status) {
+        switch(this.getStatus()) {
             case WANDERING:
                 this.position = new Point(this.getPositionX() + randomX, this.getPositionY() + randomY);
                 break;

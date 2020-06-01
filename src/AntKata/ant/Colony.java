@@ -28,10 +28,10 @@ public class Colony {
     public int next(List<Point> food) {
 
         //communication between ants when they are at the same location
-        for (int i = 0 ; i < ants.size() ; i++) {
-            for (int j = 0 ; j < ants.size() ; j++) {
-                // getting rid of cas i = j because it involve the same ant
-                if (i != j && ants.get(i).getPosition().equals(ants.get(j).getPosition())) {
+        for (int i = 0 ; i < ants.size() - 1; i++) {
+            for (int j = i + 1 ; j < ants.size() ; j++) {
+
+                if (ants.get(i).getPosition().equals(ants.get(j).getPosition())) {
                     // if ant i is on her way back to the colonny or to fetch food, then she is the one knowing were the food is
                     if(ants.get(i).getStatus() == Status.FETCHING_FOOD || ants.get(i).getStatus() == Status.RETURNING_COLONY) {
                         ants.get(j).setLastKnownFoodPosition(ants.get(i).getLastKnownFoodPosition());
@@ -45,16 +45,32 @@ public class Colony {
                 }
             }
 
+            switch(ants.get(i).getStatus()) {
+                case RETURNING_COLONY :
+                    if(ants.get(i).getPosition().equals(this.position)) {
+                        this.foodCollected++;
+                    }
+                    break;
+
+                case WANDERING:
+
+                    break;
+
+                default:
+                    break;
+            }
             ants.get(i).scatter();
         }
-
-        /*for (Ant ant : ants) {
+/*
+        for (Ant ant : ants) {
 
             switch(ant.getStatus()) {
                 case RETURNING_COLONY :
                     if(ant.getPosition().equals(this.position)) {
                         this.foodCollected++;
                     }
+                    break;
+                default:
                     break;
             }
 
