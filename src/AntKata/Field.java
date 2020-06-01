@@ -84,7 +84,7 @@ public class Field extends JPanel {
     }
 
     private void initColonyAndFood() {
-        this.c = new Colony(10, new Point(this.widthX / 2, this.heightX / 2));
+        this.c = new Colony(100, new Point(this.widthX / 2, this.heightX / 2));
         this.food = new ArrayList<>();
     }
 

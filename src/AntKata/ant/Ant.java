@@ -17,7 +17,7 @@ public class Ant {
         this.colony = positionColony;
     }
 
-    private void scatter() {
+    public void scatter() {
         int randomX = RNG.random(-1, 1);
         int randomY = RNG.random(-1, 1);
 
@@ -83,13 +83,21 @@ public class Ant {
         return this.status;
     }
 
+    public Point getLastKnownFoodPosition() {
+
+        return lastKnownFoodPosition;
+    }
+
     public void setPosition(Point point) {
 
         this.position = new Point(point.x, point.y);
     }
 
-    public Point getLastKnownFoodPosition() {
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-        return lastKnownFoodPosition;
+    public void setLastKnownFoodPosition(Point lastKnownFoodPosition) {
+        this.lastKnownFoodPosition = lastKnownFoodPosition;
     }
 }
